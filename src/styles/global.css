@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn-primary {
+      @apply text-white bg-blue-600 rounded-sm p-2 text-xs 
+      hover:bg-blue-800
+    }
+  }
