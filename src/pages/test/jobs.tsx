@@ -1,4 +1,4 @@
-import { api } from "@/lib/axios";
+import { api } from "@/services/axios";
 import { GetServerSideProps } from "next";
 import { Key, useEffect, useState } from "react";
 import Image from 'next/image';
@@ -17,13 +17,13 @@ interface JobsProps {
 }
 
 
-export default function Jobs(props: JobsProps){
+export default function Jobs({jobsResponse}: JobsProps){
 
-    const [jobs,setJobs] = useState(props.jobsResponse);
+    const [jobs,setJobs] = useState(jobsResponse);
     
     function sortJobsByCompanyName () {
 
-        let sortedJobs = [...props.jobsResponse];
+        let sortedJobs = [...jobsResponse];
 
         // sort by alphabetical order
         sortedJobs.sort((a: Job,b: Job)=>{
@@ -41,7 +41,7 @@ export default function Jobs(props: JobsProps){
 
     function filterJobsInLastSevenDays () {
         
-        let filteredJobs = [...props.jobsResponse];
+        let filteredJobs = [...jobsResponse];
 
         filteredJobs = filteredJobs.filter((job)=>{
 
@@ -65,7 +65,7 @@ export default function Jobs(props: JobsProps){
     }
 
     function clearFilters () {
-        setJobs(props.jobsResponse);
+        setJobs(jobsResponse);
     }
 
     return(
@@ -89,7 +89,7 @@ export default function Jobs(props: JobsProps){
 
             <div className="space-y-6 mt-6 bg px-16 pb-16">
                 {
-                    jobs.map((job: Job, index: Key | null | undefined)=>{
+                    jobs?.map((job: Job, index: number)=>{
                         return(
                             <Card 
                                 key={index} 
